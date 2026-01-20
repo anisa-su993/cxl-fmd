@@ -1,0 +1,62 @@
+{
+    "version": 1,
+    "id": "unit_direct_mld",
+    "description": "Unit test: Direct-attached MLD (2 LDs, 2GB each)",
+
+    "hosts": [
+        {
+            "id": "host0",
+            "name": "Local Host",
+            "direct_attached": true
+        }
+    ],
+
+    "devices": [
+        {
+            "id": "mld_0",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d94",
+            "serial_number": "0x4d4c44303030303030",
+            "component_type": 3,
+            "ld_count": 2,
+            "max_ld_count": 4,
+            "memory_granularity": 1,
+
+            "identify_memory_device": {
+                "fw_revision": "2.0.0",
+                "total_capacity_mb": 4096,
+                "volatile_capacity_mb": 0,
+                "persistent_capacity_mb": 4096,
+                "partition_align_mb": 256
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 3,
+                "temperature": 42
+            },
+
+            "qos_control": {
+                "enabled": true,
+                "egress_moderate_pct": 50,
+                "egress_severe_pct": 75
+            },
+
+            "logical_devices": [
+                {
+                    "ld_id": 0,
+                    "memory_size_mb": 2048,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "ld_id": 1,
+                    "memory_size_mb": 2048,
+                    "qos_allocated_bw": 80,
+                    "qos_limit_bw": 100
+                }
+            ]
+        }
+    ]
+}

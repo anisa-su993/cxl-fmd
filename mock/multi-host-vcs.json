@@ -1,0 +1,343 @@
+{
+    "_comment": [
+        "Multi-Host VCS Topology (CXL r3.2 Section 7.6.6 compliant)",
+        "",
+        "Demonstrates Virtual CXL Switch (VCS) partitioning for multi-host access.",
+        "Per CXL spec, Multiple VCS requires multiple Upstream Ports (USPs).",
+        "Each VCS has its own USP connecting to a different host.",
+        "",
+        "Physical Layout:",
+        "  Switch (cxl_switch_0)",
+        "    USP0 (port 0) - upstream to Host A / Root Port 0",
+        "    USP1 (port 1) - upstream to Host B / Root Port 1",
+        "    DSP0 (port 2) - SLD dev0 (32GB)  -> VCS0",
+        "    DSP1 (port 3) - SLD dev1 (32GB)  -> VCS0",
+        "    DSP2 (port 4) - SLD dev2 (64GB)  -> VCS1",
+        "    DSP3 (port 5) - MLD (4 LDs x 32GB = 128GB)",
+        "                      LD0 -> VCS0/Host A",
+        "                      LD1 -> VCS0/Host A",
+        "                      LD2 -> VCS1/Host B",
+        "                      LD3 -> VCS1/Host B",
+        "",
+        "VCS Configuration (per CXL vPPB Ordering: USP vPPB first, then DSP vPPBs):",
+        "  VCS0 (Host A): 64GB SLD (dev0+dev1) + 64GB MLD (LD0+LD1) = 128GB",
+        "    vPPB0 -> USP (bound to Port 0, implicit)",
+        "    vPPB1 -> BoundPhysicalPort: DSP0/Port 2 (dev0)",
+        "    vPPB2 -> BoundPhysicalPort: DSP1/Port 3 (dev1)",
+        "    vPPB3 -> BoundLD: DSP3/Port 5/LD0",
+        "    vPPB4 -> BoundLD: DSP3/Port 5/LD1",
+        "",
+        "  VCS1 (Host B): 64GB SLD (dev2) + 64GB MLD (LD2+LD3) = 128GB",
+        "    vPPB0 -> USP (bound to Port 1, implicit)",
+        "    vPPB1 -> BoundPhysicalPort: DSP2/Port 4 (dev2)",
+        "    vPPB2 -> BoundLD: DSP3/Port 5/LD2",
+        "    vPPB3 -> BoundLD: DSP3/Port 5/LD3",
+        "    vPPB4 -> Unbound (available for future binding)",
+        "",
+        "Key Concepts Demonstrated:",
+        "  - Multiple USPs: Each VCS has its own upstream port to its host",
+        "  - vPPB #0 is always the USP vPPB (per CXL vPPB Ordering)",
+        "  - BoundPhysicalPort: vPPB bound to entire device (SLD or PCIe)",
+        "  - BoundLD: vPPB bound to specific LD within MLD (memory partitioning)",
+        "  - Unbound: vPPB available for dynamic binding via FM-API",
+        "  - Each VCS appears as independent switch to its host"
+    ],
+    "version": 1,
+    "id": "multi_host_vcs",
+    "description": "Multi-host topology with VCS partitioning - 2 hosts with separate USPs sharing switch resources",
+
+    "switches": [
+        {
+            "id": "cxl_switch_0",
+            "vendor_id": "0x8086",
+            "device_id": "0x0e00",
+            "serial_number": "0x5357495443483030",
+            "max_vcs": 8,
+
+            "ports": [
+                {
+                    "_comment": "USP for VCS0 - connects to Host A / Root Port 0",
+                    "port_number": 0,
+                    "type": "upstream",
+                    "link_status": "up",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16
+                },
+                {
+                    "_comment": "USP for VCS1 - connects to Host B / Root Port 1",
+                    "port_number": 1,
+                    "type": "upstream",
+                    "link_status": "up",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16
+                },
+                {
+                    "_comment": "DSP0 - SLD dev0 for VCS0",
+                    "port_number": 2,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "sld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "supported_ld_count": 1
+                },
+                {
+                    "_comment": "DSP1 - SLD dev1 for VCS0",
+                    "port_number": 3,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "sld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "supported_ld_count": 1
+                },
+                {
+                    "_comment": "DSP2 - SLD dev2 for VCS1",
+                    "port_number": 4,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "sld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "supported_ld_count": 1
+                },
+                {
+                    "_comment": "DSP3 - MLD shared between VCS0 and VCS1",
+                    "port_number": 5,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "mld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "supported_ld_count": 16
+                }
+            ],
+
+            "vcs": [
+                {
+                    "_comment": "VCS0: Host A via USP Port 0 - sees dev0, dev1, and MLD LD0/LD1",
+                    "vcs_id": 0,
+                    "state": 1,
+                    "hdm_decoders": 8,
+                    "upstream_port_id": 0,
+                    "vppbs": [
+                        {
+                            "_comment": "vPPB #0 is always USP (implicit, bound to upstream_port_id)",
+                            "vppb_id": 0,
+                            "binding_status": "bound_physical_port",
+                            "bound_port_id": 0,
+                            "_target": "USP to Host A"
+                        },
+                        {
+                            "vppb_id": 1,
+                            "binding_status": "bound_physical_port",
+                            "bound_port_id": 2,
+                            "_target": "dev0 (32GB SLD)"
+                        },
+                        {
+                            "vppb_id": 2,
+                            "binding_status": "bound_physical_port",
+                            "bound_port_id": 3,
+                            "_target": "dev1 (32GB SLD)"
+                        },
+                        {
+                            "vppb_id": 3,
+                            "binding_status": "bound_ld",
+                            "bound_port_id": 5,
+                            "bound_ld_id": 0,
+                            "_target": "MLD LD0 (32GB)"
+                        },
+                        {
+                            "vppb_id": 4,
+                            "binding_status": "bound_ld",
+                            "bound_port_id": 5,
+                            "bound_ld_id": 1,
+                            "_target": "MLD LD1 (32GB)"
+                        }
+                    ]
+                },
+                {
+                    "_comment": "VCS1: Host B via USP Port 1 - sees dev2 and MLD LD2/LD3",
+                    "vcs_id": 1,
+                    "state": 1,
+                    "hdm_decoders": 8,
+                    "upstream_port_id": 1,
+                    "vppbs": [
+                        {
+                            "_comment": "vPPB #0 is always USP (implicit, bound to upstream_port_id)",
+                            "vppb_id": 0,
+                            "binding_status": "bound_physical_port",
+                            "bound_port_id": 1,
+                            "_target": "USP to Host B"
+                        },
+                        {
+                            "vppb_id": 1,
+                            "binding_status": "bound_physical_port",
+                            "bound_port_id": 4,
+                            "_target": "dev2 (64GB SLD)"
+                        },
+                        {
+                            "vppb_id": 2,
+                            "binding_status": "bound_ld",
+                            "bound_port_id": 5,
+                            "bound_ld_id": 2,
+                            "_target": "MLD LD2 (32GB)"
+                        },
+                        {
+                            "vppb_id": 3,
+                            "binding_status": "bound_ld",
+                            "bound_port_id": 5,
+                            "bound_ld_id": 3,
+                            "_target": "MLD LD3 (32GB)"
+                        },
+                        {
+                            "vppb_id": 4,
+                            "binding_status": "unbound",
+                            "_comment": "Available for dynamic binding"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+
+    "devices": [
+        {
+            "_comment": "SLD for VCS0/Host A on DSP0",
+            "id": "dev0",
+            "vendor_id": "0x144d",
+            "device_id": "0xa80a",
+            "serial_number": "0x4445563030303030",
+            "component_type": 3,
+            "parent_switch": "cxl_switch_0",
+            "parent_port": 2,
+
+            "identify_memory_device": {
+                "fw_revision": "2.1.0",
+                "total_capacity_mb": 32768,
+                "persistent_capacity_mb": 32768
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 5,
+                "temperature": 38
+            }
+        },
+        {
+            "_comment": "SLD for VCS0/Host A on DSP1",
+            "id": "dev1",
+            "vendor_id": "0x144d",
+            "device_id": "0xa80a",
+            "serial_number": "0x4445563031303030",
+            "component_type": 3,
+            "parent_switch": "cxl_switch_0",
+            "parent_port": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "2.1.0",
+                "total_capacity_mb": 32768,
+                "persistent_capacity_mb": 32768
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 3,
+                "temperature": 36
+            }
+        },
+        {
+            "_comment": "SLD for VCS1/Host B on DSP2",
+            "id": "dev2",
+            "vendor_id": "0x1344",
+            "device_id": "0xc301",
+            "serial_number": "0x4445563032303030",
+            "component_type": 3,
+            "parent_switch": "cxl_switch_0",
+            "parent_port": 4,
+
+            "identify_memory_device": {
+                "fw_revision": "3.0.0",
+                "total_capacity_mb": 65536,
+                "volatile_capacity_mb": 16384,
+                "persistent_capacity_mb": 49152
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 8,
+                "temperature": 42
+            }
+        },
+        {
+            "_comment": "MLD shared between VCS0 (LD0,LD1) and VCS1 (LD2,LD3) on DSP3",
+            "id": "mld0",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d94",
+            "serial_number": "0x4d4c443030303030",
+            "component_type": 3,
+            "parent_switch": "cxl_switch_0",
+            "parent_port": 5,
+            "ld_count": 4,
+            "max_ld_count": 16,
+
+            "identify_memory_device": {
+                "fw_revision": "1.5.0",
+                "total_capacity_mb": 131072,
+                "persistent_capacity_mb": 131072,
+                "dc_region_count": 4
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 2,
+                "temperature": 44
+            },
+
+            "qos_control": {
+                "enabled": true,
+                "egress_moderate_pct": 50,
+                "egress_severe_pct": 75
+            },
+
+            "logical_devices": [
+                {
+                    "_comment": "LD0 -> VCS0/Host A via vPPB3",
+                    "ld_id": 0,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "_comment": "LD1 -> VCS0/Host A via vPPB4",
+                    "ld_id": 1,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "_comment": "LD2 -> VCS1/Host B via vPPB2",
+                    "ld_id": 2,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "_comment": "LD3 -> VCS1/Host B via vPPB3",
+                    "ld_id": 3,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,8 @@
+- Support for MHD at the CXL topology level, Redfish modeling is pretty much done - some missing links.
+- Support for SSL (https://...)
+- Support DCD
+- Support GFD
+- Support BG commands/context
+- Users of cxl-fmd (authentication)
+- State for mock topologies.
+- Testing, testing, testing.

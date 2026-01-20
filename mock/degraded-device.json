@@ -1,0 +1,150 @@
+{
+    "version": 1,
+    "id": "degraded_device",
+    "description": "Device with health issues - tests CCI-to-Redfish status mapping",
+
+    "devices": [
+        {
+            "id": "cxl_healthy",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x48454c5448593030",
+            "component_type": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.0",
+                "total_capacity_mb": 16384,
+                "persistent_capacity_mb": 16384
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 5,
+                "temperature": 40
+            }
+        },
+        {
+            "id": "cxl_maintenance_needed",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x4d41494e544e4345",
+            "component_type": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.0",
+                "total_capacity_mb": 16384,
+                "persistent_capacity_mb": 16384
+            },
+
+            "health_info": {
+                "health_status": 1,
+                "media_status": 0,
+                "life_used": 75,
+                "temperature": 55
+            }
+        },
+        {
+            "id": "cxl_performance_degraded",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x504552464445475244",
+            "component_type": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.0",
+                "total_capacity_mb": 16384,
+                "persistent_capacity_mb": 16384
+            },
+
+            "health_info": {
+                "health_status": 2,
+                "media_status": 0,
+                "life_used": 50,
+                "temperature": 60
+            }
+        },
+        {
+            "id": "cxl_hw_replacement_needed",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x4857524550414c43",
+            "component_type": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.0",
+                "total_capacity_mb": 16384,
+                "persistent_capacity_mb": 16384
+            },
+
+            "health_info": {
+                "health_status": 4,
+                "media_status": 0,
+                "life_used": 95,
+                "temperature": 70
+            }
+        },
+        {
+            "id": "cxl_media_not_ready",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x4e4f54524541445930",
+            "component_type": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.0",
+                "total_capacity_mb": 16384,
+                "persistent_capacity_mb": 16384
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 1,
+                "life_used": 10,
+                "temperature": 40
+            }
+        },
+        {
+            "id": "cxl_write_persistency_lost",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x5052534e4359",
+            "component_type": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.0",
+                "total_capacity_mb": 16384,
+                "persistent_capacity_mb": 16384
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 2,
+                "life_used": 30,
+                "temperature": 45,
+                "dirty_shutdown_count": 5
+            }
+        },
+        {
+            "id": "cxl_all_data_lost",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x444154414c4f5354",
+            "component_type": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.0",
+                "total_capacity_mb": 16384,
+                "persistent_capacity_mb": 16384
+            },
+
+            "health_info": {
+                "health_status": 5,
+                "media_status": 3,
+                "life_used": 100,
+                "temperature": 85,
+                "dirty_shutdown_count": 50
+            }
+        }
+    ]
+}

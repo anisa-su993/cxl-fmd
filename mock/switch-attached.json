@@ -1,0 +1,298 @@
+{
+    "_comment": [
+        "Single VCS Switch-Attached Topology (CXL r3.2 Section 7.6.6 compliant)",
+        "",
+        "Demonstrates a Single VCS CXL switch with multiple downstream devices.",
+        "Per CXL vPPB Ordering, vPPB #0 is always the USP, DSP vPPBs follow.",
+        "",
+        "Physical Layout:",
+        "  Switch (cxl_switch_0)",
+        "    USP (port 0) - upstream to host",
+        "    DSP (ports 1-7) - downstream ports with various devices",
+        "",
+        "VCS Configuration (per CXL vPPB Ordering: USP vPPB first, then DSP vPPBs):",
+        "  VCS0:",
+        "    vPPB0 -> USP (bound to Port 0)",
+        "    vPPB1 -> BoundPhysicalPort: Port 1 (SLD dev0)",
+        "    vPPB2 -> BoundPhysicalPort: Port 2 (SLD dev1)",
+        "    vPPB3 -> BoundPhysicalPort: Port 3 (SLD dev2)",
+        "    vPPB4 -> BoundLD: Port 4/LD0 (MLD)",
+        "    vPPB5 -> BoundLD: Port 4/LD1 (MLD)",
+        "    vPPB6 -> BoundPhysicalPort: Port 5 (SLD degraded)",
+        "    vPPB7 -> Unbound (Port 6 is link down)",
+        "    vPPB8 -> Unbound (Port 7 is link down)"
+    ],
+    "version": 1,
+    "id": "switch_attached",
+    "description": "Single VCS switch-attached topology with multiple devices behind CXL switch",
+
+    "switches": [
+        {
+            "id": "cxl_switch_0",
+            "vendor_id": "0x8086",
+            "device_id": "0x0e00",
+            "serial_number": "0x5357495443483030",
+            "max_vcs": 8,
+
+            "ports": [
+                {
+                    "_comment": "USP - upstream to host",
+                    "port_number": 0,
+                    "type": "upstream",
+                    "link_status": "up",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16
+                },
+                {
+                    "port_number": 1,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "sld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "supported_ld_count": 1
+                },
+                {
+                    "port_number": 2,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "sld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 8,
+                    "supported_ld_count": 1
+                },
+                {
+                    "port_number": 3,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "sld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "supported_ld_count": 1
+                },
+                {
+                    "port_number": 4,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "mld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "supported_ld_count": 16
+                },
+                {
+                    "port_number": 5,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "sld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 8,
+                    "supported_ld_count": 1
+                },
+                {
+                    "port_number": 6,
+                    "type": "downstream",
+                    "link_status": "down",
+                    "conn_dev_type": "none",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 0,
+                    "supported_ld_count": 16
+                },
+                {
+                    "port_number": 7,
+                    "type": "downstream",
+                    "link_status": "down",
+                    "conn_dev_type": "none",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 0,
+                    "supported_ld_count": 16
+                }
+            ],
+
+            "vcs": [
+                {
+                    "_comment": "Single VCS - vPPB #0 is USP per CXL vPPB Ordering",
+                    "vcs_id": 0,
+                    "state": 1,
+                    "hdm_decoders": 8,
+                    "upstream_port_id": 0,
+                    "vppbs": [
+                        {"vppb_id": 0, "binding_status": "bound_physical_port", "bound_port_id": 0, "_comment": "USP"},
+                        {"vppb_id": 1, "binding_status": "bound_physical_port", "bound_port_id": 1},
+                        {"vppb_id": 2, "binding_status": "bound_physical_port", "bound_port_id": 2},
+                        {"vppb_id": 3, "binding_status": "bound_physical_port", "bound_port_id": 3},
+                        {"vppb_id": 4, "binding_status": "bound_ld", "bound_port_id": 4, "bound_ld_id": 0},
+                        {"vppb_id": 5, "binding_status": "bound_ld", "bound_port_id": 4, "bound_ld_id": 1},
+                        {"vppb_id": 6, "binding_status": "bound_physical_port", "bound_port_id": 5},
+                        {"vppb_id": 7, "binding_status": "unbound"},
+                        {"vppb_id": 8, "binding_status": "unbound"}
+                    ]
+                }
+            ]
+        }
+    ],
+
+    "devices": [
+        {
+            "id": "cxl_switch0_dev0",
+            "vendor_id": "0x144d",
+            "device_id": "0xa80a",
+            "serial_number": "0x5357304445563030",
+            "component_type": 3,
+            "parent_switch": "cxl_switch_0",
+            "parent_port": 1,
+
+            "identify_memory_device": {
+                "fw_revision": "2.1.0",
+                "total_capacity_mb": 32768,
+                "persistent_capacity_mb": 32768
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 5,
+                "temperature": 40
+            }
+        },
+        {
+            "id": "cxl_switch0_dev1",
+            "vendor_id": "0x144d",
+            "device_id": "0xa80a",
+            "serial_number": "0x5357304445563031",
+            "component_type": 3,
+            "parent_switch": "cxl_switch_0",
+            "parent_port": 2,
+
+            "identify_memory_device": {
+                "fw_revision": "2.1.0",
+                "total_capacity_mb": 32768,
+                "persistent_capacity_mb": 32768
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 3,
+                "temperature": 38
+            }
+        },
+        {
+            "id": "cxl_switch0_dev2",
+            "vendor_id": "0x1344",
+            "device_id": "0xc301",
+            "serial_number": "0x5357304445563032",
+            "component_type": 3,
+            "parent_switch": "cxl_switch_0",
+            "parent_port": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "3.0.0",
+                "total_capacity_mb": 65536,
+                "volatile_capacity_mb": 16384,
+                "persistent_capacity_mb": 49152
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 8,
+                "temperature": 42
+            }
+        },
+        {
+            "id": "cxl_switch0_mld",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d94",
+            "serial_number": "0x5357304445563033",
+            "component_type": 3,
+            "parent_switch": "cxl_switch_0",
+            "parent_port": 4,
+            "ld_count": 4,
+            "max_ld_count": 16,
+            "memory_granularity": 4,
+            "qos_telemetry_capability": 1,
+
+            "identify_memory_device": {
+                "fw_revision": "1.5.0",
+                "total_capacity_mb": 131072,
+                "persistent_capacity_mb": 131072,
+                "dc_region_count": 4
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 1,
+                "temperature": 45
+            },
+
+            "qos_control": {
+                "enabled": true,
+                "egress_moderate_pct": 50,
+                "egress_severe_pct": 75
+            },
+
+            "qos_status": {
+                "backpressure_avg_pct": 25
+            },
+
+            "logical_devices": [
+                {
+                    "ld_id": 0,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "ld_id": 1,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 80,
+                    "qos_limit_bw": 100,
+                    "health_info": {
+                        "health_status": 1,
+                        "media_status": 0
+                    }
+                },
+                {
+                    "ld_id": 2,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 60,
+                    "qos_limit_bw": 80
+                },
+                {
+                    "ld_id": 3,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 40,
+                    "qos_limit_bw": 60
+                }
+            ]
+        },
+        {
+            "id": "cxl_switch0_degraded",
+            "vendor_id": "0x1e98",
+            "device_id": "0x1001",
+            "serial_number": "0x5357304445563034",
+            "component_type": 3,
+            "parent_switch": "cxl_switch_0",
+            "parent_port": 5,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.5",
+                "total_capacity_mb": 16384,
+                "persistent_capacity_mb": 16384
+            },
+
+            "health_info": {
+                "health_status": 2,
+                "media_status": 1,
+                "life_used": 85,
+                "temperature": 72,
+                "dirty_shutdown_count": 3
+            }
+        }
+    ]
+}

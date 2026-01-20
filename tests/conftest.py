@@ -1,0 +1,248 @@
+# SPDX-License-Identifier: LGPL-2.1
+"""pytest fixtures for cxl-fmd Redfish testing."""
+
+
+def pytest_configure(config):
+    """Register custom markers."""
+    config.addinivalue_line(
+        "markers", "mock_topology(path): specify mock topology JSON file for test"
+    )
+    config.addinivalue_line(
+        "markers", "port(num): specify port number for daemon"
+    )
+    config.addinivalue_line(
+        "markers", "slow: marks tests as slow (deselect with '-m \"not slow\"')"
+    )
+
+
+import os
+import subprocess
+import sys
+import time
+import urllib.request
+import urllib.error
+import venv
+from pathlib import Path
+
+import pytest
+import requests
+
+# Project root (parent of tests/)
+PROJECT_ROOT = Path(__file__).parent.parent.resolve()
+
+# Default startup timeout
+STARTUP_TIMEOUT = 30
+
+# Virtual environment for validator
+VENV_DIR = PROJECT_ROOT / ".venv-validator"
+
+
+class ValidatorVenv:
+    """Manages virtual environment for Redfish validator."""
+
+    def __init__(self, venv_path):
+        self.venv_path = Path(venv_path)
+        self.python = self.venv_path / "bin" / "python"
+        self.validator = self.venv_path / "bin" / "rf_service_validator"
+
+    def exists(self):
+        """Check if venv exists with validator installed."""
+        return self.python.exists() and self.validator.exists()
+
+    def create(self):
+        """Create virtual environment and install validator."""
+        print(f"Creating virtual environment at {self.venv_path}")
+        venv.create(self.venv_path, with_pip=True)
+
+        print("Installing redfish-service-validator...")
+        subprocess.run(
+            [str(self.python), "-m", "pip", "install", "-q",
+             "redfish-service-validator"],
+            check=True,
+        )
+
+    def ensure(self):
+        """Ensure venv exists with validator installed."""
+        if not self.exists():
+            self.create()
+        return self
+
+
+@pytest.fixture(scope="session")
+def project_root():
+    """Return project root directory."""
+    return PROJECT_ROOT
+
+
+@pytest.fixture(scope="session")
+def schema_dir(project_root):
+    """Return CSDL/XML schema directory for validator."""
+    return project_root / "schema" / "dmtf" / "csdl"
+
+
+@pytest.fixture(scope="session")
+def validator_venv():
+    """Ensure validator virtual environment is set up and return it."""
+    venv_mgr = ValidatorVenv(VENV_DIR)
+    venv_mgr.ensure()
+    return venv_mgr
+
+
+@pytest.fixture(scope="session")
+def cxl_fmd_executable(project_root):
+    """Find and return cxl-fmd executable path."""
+    # Check MESON_BUILD_ROOT env var first (set by meson test)
+    build_root = os.environ.get("MESON_BUILD_ROOT")
+
+    search_paths = []
+    if build_root:
+        search_paths.append(Path(build_root) / "cxl-fmd")
+
+    search_paths.extend([
+        project_root / "build" / "cxl-fmd",
+        project_root / "builddir" / "cxl-fmd",
+    ])
+
+    for path in search_paths:
+        if path.exists():
+            return path
+
+    pytest.skip(f"cxl-fmd executable not found in {search_paths}")
+
+
+def _wait_for_service(url, timeout=STARTUP_TIMEOUT):
+    """Wait for HTTP service to become available."""
+    start = time.time()
+    while time.time() - start < timeout:
+        try:
+            with urllib.request.urlopen(url, timeout=2) as resp:
+                if resp.status == 200:
+                    return True
+        except (urllib.error.URLError, Exception):
+            pass
+        time.sleep(0.5)
+    return False
+
+
+def _find_free_port():
+    """Find an available port for testing."""
+    import socket
+    with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+        s.bind(('', 0))
+        return s.getsockname()[1]
+
+
+@pytest.fixture
+def cxl_fmd_daemon(cxl_fmd_executable, request):
+    """
+    Start cxl-fmd daemon with mock topology.
+
+    Use markers to customize:
+        @pytest.mark.mock_topology("mock/mld-device.json")
+        @pytest.mark.port(8081)
+    """
+    # Get mock topology from test marker or use default
+    marker = request.node.get_closest_marker("mock_topology")
+    mock_file = marker.args[0] if marker else "mock/single-sld.json"
+    mock_path = PROJECT_ROOT / mock_file
+
+    # Get port from marker or find a free one
+    port_marker = request.node.get_closest_marker("port")
+    port = port_marker.args[0] if port_marker else _find_free_port()
+
+    # Start daemon
+    process = subprocess.Popen(
+        [
+            str(cxl_fmd_executable),
+            "--mock", str(mock_path),
+            "--port", str(port),
+        ],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT,
+    )
+
+    # Wait for ready
+    url = f"http://localhost:{port}/redfish/v1"
+    if not _wait_for_service(url):
+        # Capture output for debugging
+        process.terminate()
+        try:
+            stdout, _ = process.communicate(timeout=5)
+            output = stdout.decode() if stdout else ""
+        except Exception:
+            output = ""
+        pytest.fail(f"Daemon did not become ready. Output:\n{output}")
+
+    yield {
+        "process": process,
+        "port": port,
+        "url": f"http://localhost:{port}",
+        "mock_topology": str(mock_path),
+    }
+
+    # Cleanup
+    process.terminate()
+    try:
+        process.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        process.kill()
+        process.wait()
+
+
+class RedfishClient:
+    """HTTP client wrapper for Redfish API testing."""
+
+    def __init__(self, base_url):
+        self.base_url = base_url
+
+    def get(self, path):
+        """GET request returning (status_code, json_data)."""
+        resp = requests.get(f"{self.base_url}{path}")
+        try:
+            data = resp.json() if resp.content else None
+        except ValueError:
+            data = None
+        return resp.status_code, data
+
+    def post(self, path, body, raw_body=None):
+        """POST request returning (status_code, json_data, location_header).
+
+        If raw_body is provided, it is sent as-is (for fuzzing malformed JSON).
+        """
+        if raw_body is not None:
+            resp = requests.post(
+                f"{self.base_url}{path}",
+                data=raw_body,
+                headers={"Content-Type": "application/json"}
+            )
+        else:
+            resp = requests.post(f"{self.base_url}{path}", json=body)
+        try:
+            data = resp.json() if resp.content else None
+        except ValueError:
+            data = None
+        return resp.status_code, data, resp.headers.get('Location')
+
+    def delete(self, path):
+        """DELETE request returning status_code."""
+        return requests.delete(f"{self.base_url}{path}").status_code
+
+    def patch(self, path, body):
+        """PATCH request returning (status_code, json_data)."""
+        resp = requests.patch(f"{self.base_url}{path}", json=body)
+        try:
+            data = resp.json() if resp.content else None
+        except ValueError:
+            data = None
+        return resp.status_code, data
+
+
+@pytest.fixture
+def api_client(cxl_fmd_daemon):
+    """
+    HTTP client for Redfish API testing.
+
+    Provides get(), post(), delete(), patch() methods with automatic
+    JSON handling. Uses the daemon's base URL.
+    """
+    return RedfishClient(cxl_fmd_daemon['url'])

@@ -1,0 +1,86 @@
+{
+    "version": 1,
+    "id": "unit_switch_sld",
+    "description": "Unit test: Switch-attached SLD (2GB persistent)",
+
+    "switches": [
+        {
+            "id": "switch_0",
+            "vendor_id": "0x8086",
+            "device_id": "0x0e00",
+            "serial_number": "0x5357303030303030",
+            "max_vcs": 4,
+
+            "ports": [
+                {
+                    "port_number": 0,
+                    "type": "upstream",
+                    "link_status": "up",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16
+                },
+                {
+                    "port_number": 1,
+                    "type": "downstream",
+                    "link_status": "up",
+                    "conn_dev_type": "sld",
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "supported_ld_count": 1
+                }
+            ],
+
+            "vcs": [
+                {
+                    "vcs_id": 0,
+                    "state": 1,
+                    "hdm_decoders": 8,
+                    "upstream_port_id": 0,
+                    "vppbs": [
+                        {
+                            "vppb_id": 0,
+                            "binding_status": "bound_physical_port",
+                            "bound_port_id": 0
+                        },
+                        {
+                            "vppb_id": 1,
+                            "binding_status": "bound_physical_port",
+                            "bound_port_id": 1
+                        },
+                        {
+                            "vppb_id": 2,
+                            "binding_status": "unbound"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+
+    "devices": [
+        {
+            "id": "sld_0",
+            "vendor_id": "0x144d",
+            "device_id": "0xa80a",
+            "serial_number": "0x534c44303030303031",
+            "component_type": 3,
+            "parent_switch": "switch_0",
+            "parent_port": 1,
+
+            "identify_memory_device": {
+                "fw_revision": "2.1.0",
+                "total_capacity_mb": 2048,
+                "volatile_capacity_mb": 0,
+                "persistent_capacity_mb": 2048,
+                "partition_align_mb": 256
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 5,
+                "temperature": 40
+            }
+        }
+    ]
+}

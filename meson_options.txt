@@ -1,0 +1,5 @@
+# SPDX-License-Identifier: Apache-2.0
+# cxl-fmd meson build options
+
+option('tests', type: 'feature', value: 'auto',
+       description: 'Enable test suite')

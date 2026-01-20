@@ -1,0 +1,352 @@
+/* SPDX-License-Identifier: LGPL-2.1 */
+/* Auto-generated from DMTF CSDL schemas - DO NOT EDIT */
+
+#ifndef REDFISH_ENUM_LOG_ENTRY_H
+#define REDFISH_ENUM_LOG_ENTRY_H
+
+#include <stddef.h>
+
+/* LogEntry.v1_0_0.EventSeverity */
+enum rf_event_severity {
+	EVENT_SEVERITY_INVALID = 0,
+	EVENT_SEVERITY_OK = 1,
+	EVENT_SEVERITY_WARNING = 2,
+	EVENT_SEVERITY_CRITICAL = 3,
+};
+
+static inline const char *rf_event_severity_to_str(enum rf_event_severity val)
+{
+	switch (val) {
+	case EVENT_SEVERITY_INVALID: return "Invalid";
+	case EVENT_SEVERITY_OK: return "OK";
+	case EVENT_SEVERITY_WARNING: return "Warning";
+	case EVENT_SEVERITY_CRITICAL: return "Critical";
+	default: return NULL;
+	}
+}
+
+/* LogEntry.v1_0_0.LogEntryType */
+enum rf_log_entry_type {
+	LOG_ENTRY_TYPE_INVALID = 0,
+	LOG_ENTRY_TYPE_EVENT = 1,
+	LOG_ENTRY_TYPE_SEL = 2,
+	LOG_ENTRY_TYPE_OEM = 3,
+	LOG_ENTRY_TYPE_CXL = 4,
+};
+
+static inline const char *rf_log_entry_type_to_str(enum rf_log_entry_type val)
+{
+	switch (val) {
+	case LOG_ENTRY_TYPE_INVALID: return "Invalid";
+	case LOG_ENTRY_TYPE_EVENT: return "Event";
+	case LOG_ENTRY_TYPE_SEL: return "SEL";
+	case LOG_ENTRY_TYPE_OEM: return "Oem";
+	case LOG_ENTRY_TYPE_CXL: return "CXL";
+	default: return NULL;
+	}
+}
+
+/* LogEntry.v1_0_0.LogEntryCode */
+enum rf_log_entry_code {
+	LOG_ENTRY_CODE_INVALID = 0,
+	LOG_ENTRY_CODE_ASSERT = 1,
+	LOG_ENTRY_CODE_DEASSERT = 2,
+	LOG_ENTRY_CODE_LOWER_NONCRITICALGOINGLOW = 3,
+	LOG_ENTRY_CODE_LOWER_NONCRITICALGOINGHIGH = 4,
+	LOG_ENTRY_CODE_LOWER_CRITICALGOINGLOW = 5,
+	LOG_ENTRY_CODE_LOWER_CRITICALGOINGHIGH = 6,
+	LOG_ENTRY_CODE_LOWER_NONRECOVERABLEGOINGLOW = 7,
+	LOG_ENTRY_CODE_LOWER_NONRECOVERABLEGOINGHIGH = 8,
+	LOG_ENTRY_CODE_UPPER_NONCRITICALGOINGLOW = 9,
+	LOG_ENTRY_CODE_UPPER_NONCRITICALGOINGHIGH = 10,
+	LOG_ENTRY_CODE_UPPER_CRITICALGOINGLOW = 11,
+	LOG_ENTRY_CODE_UPPER_CRITICALGOINGHIGH = 12,
+	LOG_ENTRY_CODE_UPPER_NONRECOVERABLEGOINGLOW = 13,
+	LOG_ENTRY_CODE_UPPER_NONRECOVERABLEGOINGHIGH = 14,
+	LOG_ENTRY_CODE_TRANSITIONTO_IDLE = 15,
+	LOG_ENTRY_CODE_TRANSITIONTO_ACTIVE = 16,
+	LOG_ENTRY_CODE_TRANSITIONTO_BUSY = 17,
+	LOG_ENTRY_CODE_STATE_DEASSERTED = 18,
+	LOG_ENTRY_CODE_STATE_ASSERTED = 19,
+	LOG_ENTRY_CODE_PREDICTIVE_FAILUREDEASSERTED = 20,
+	LOG_ENTRY_CODE_PREDICTIVE_FAILUREASSERTED = 21,
+	LOG_ENTRY_CODE_LIMIT_NOT_EXCEEDED = 22,
+	LOG_ENTRY_CODE_LIMIT_EXCEEDED = 23,
+	LOG_ENTRY_CODE_PERFORMANCE_MET = 24,
+	LOG_ENTRY_CODE_PERFORMANCE_LAGS = 25,
+	LOG_ENTRY_CODE_TRANSITIONTO_OK = 26,
+	LOG_ENTRY_CODE_TRANSITIONTO_NON_CRITICALFROM_OK = 27,
+	LOG_ENTRY_CODE_TRANSITIONTO_CRITICALFROMLESSSEVERE = 28,
+	LOG_ENTRY_CODE_TRANSITIONTO_NONRECOVERABLEFROMLESSSEVERE = 29,
+	LOG_ENTRY_CODE_TRANSITIONTO_NON_CRITICALFROMMORESEVERE = 30,
+	LOG_ENTRY_CODE_TRANSITIONTO_CRITICALFROM_NONRECOVERABLE = 31,
+	LOG_ENTRY_CODE_TRANSITIONTO_NONRECOVERABLE = 32,
+	LOG_ENTRY_CODE_MONITOR = 33,
+	LOG_ENTRY_CODE_INFORMATIONAL = 34,
+	LOG_ENTRY_CODE_DEVICE_REMOVED_DEVICE_ABSENT = 35,
+	LOG_ENTRY_CODE_DEVICE_INSERTED_DEVICE_PRESENT = 36,
+	LOG_ENTRY_CODE_DEVICE_DISABLED = 37,
+	LOG_ENTRY_CODE_DEVICE_ENABLED = 38,
+	LOG_ENTRY_CODE_TRANSITIONTO_RUNNING = 39,
+	LOG_ENTRY_CODE_TRANSITIONTO_IN_TEST = 40,
+	LOG_ENTRY_CODE_TRANSITIONTO_POWER_OFF = 41,
+	LOG_ENTRY_CODE_TRANSITIONTO_ON_LINE = 42,
+	LOG_ENTRY_CODE_TRANSITIONTO_OFF_LINE = 43,
+	LOG_ENTRY_CODE_TRANSITIONTO_OFF_DUTY = 44,
+	LOG_ENTRY_CODE_TRANSITIONTO_DEGRADED = 45,
+	LOG_ENTRY_CODE_TRANSITIONTO_POWER_SAVE = 46,
+	LOG_ENTRY_CODE_INSTALL_ERROR = 47,
+	LOG_ENTRY_CODE_FULLY_REDUNDANT = 48,
+	LOG_ENTRY_CODE_REDUNDANCY_LOST = 49,
+	LOG_ENTRY_CODE_REDUNDANCY_DEGRADED = 50,
+	LOG_ENTRY_CODE_NONREDUNDANT_SUFFICIENT_RESOURCESFROM_REDUNDANT = 51,
+	LOG_ENTRY_CODE_NONREDUNDANT_SUFFICIENT_RESOURCESFROM_INSUFFICIENT_RESOURCES = 52,
+	LOG_ENTRY_CODE_NONREDUNDANT_INSUFFICIENT_RESOURCES = 53,
+	LOG_ENTRY_CODE_REDUNDANCY_DEGRADEDFROM_FULLY_REDUNDANT = 54,
+	LOG_ENTRY_CODE_REDUNDANCY_DEGRADEDFROM_NONREDUNDANT = 55,
+	LOG_ENTRY_CODE_D0_POWER_STATE = 56,
+	LOG_ENTRY_CODE_D1_POWER_STATE = 57,
+	LOG_ENTRY_CODE_D2_POWER_STATE = 58,
+	LOG_ENTRY_CODE_D3_POWER_STATE = 59,
+	LOG_ENTRY_CODE_OEM = 60,
+};
+
+static inline const char *rf_log_entry_code_to_str(enum rf_log_entry_code val)
+{
+	switch (val) {
+	case LOG_ENTRY_CODE_INVALID: return "Invalid";
+	case LOG_ENTRY_CODE_ASSERT: return "Assert";
+	case LOG_ENTRY_CODE_DEASSERT: return "Deassert";
+	case LOG_ENTRY_CODE_LOWER_NONCRITICALGOINGLOW: return "Lower Non-critical - going low";
+	case LOG_ENTRY_CODE_LOWER_NONCRITICALGOINGHIGH: return "Lower Non-critical - going high";
+	case LOG_ENTRY_CODE_LOWER_CRITICALGOINGLOW: return "Lower Critical - going low";
+	case LOG_ENTRY_CODE_LOWER_CRITICALGOINGHIGH: return "Lower Critical - going high";
+	case LOG_ENTRY_CODE_LOWER_NONRECOVERABLEGOINGLOW: return "Lower Non-recoverable - going low";
+	case LOG_ENTRY_CODE_LOWER_NONRECOVERABLEGOINGHIGH: return "Lower Non-recoverable - going high";
+	case LOG_ENTRY_CODE_UPPER_NONCRITICALGOINGLOW: return "Upper Non-critical - going low";
+	case LOG_ENTRY_CODE_UPPER_NONCRITICALGOINGHIGH: return "Upper Non-critical - going high";
+	case LOG_ENTRY_CODE_UPPER_CRITICALGOINGLOW: return "Upper Critical - going low";
+	case LOG_ENTRY_CODE_UPPER_CRITICALGOINGHIGH: return "Upper Critical - going high";
+	case LOG_ENTRY_CODE_UPPER_NONRECOVERABLEGOINGLOW: return "Upper Non-recoverable - going low";
+	case LOG_ENTRY_CODE_UPPER_NONRECOVERABLEGOINGHIGH: return "Upper Non-recoverable - going high";
+	case LOG_ENTRY_CODE_TRANSITIONTO_IDLE: return "Transition to Idle";
+	case LOG_ENTRY_CODE_TRANSITIONTO_ACTIVE: return "Transition to Active";
+	case LOG_ENTRY_CODE_TRANSITIONTO_BUSY: return "Transition to Busy";
+	case LOG_ENTRY_CODE_STATE_DEASSERTED: return "State Deasserted";
+	case LOG_ENTRY_CODE_STATE_ASSERTED: return "State Asserted";
+	case LOG_ENTRY_CODE_PREDICTIVE_FAILUREDEASSERTED: return "Predictive Failure deasserted";
+	case LOG_ENTRY_CODE_PREDICTIVE_FAILUREASSERTED: return "Predictive Failure asserted";
+	case LOG_ENTRY_CODE_LIMIT_NOT_EXCEEDED: return "Limit Not Exceeded";
+	case LOG_ENTRY_CODE_LIMIT_EXCEEDED: return "Limit Exceeded";
+	case LOG_ENTRY_CODE_PERFORMANCE_MET: return "Performance Met";
+	case LOG_ENTRY_CODE_PERFORMANCE_LAGS: return "Performance Lags";
+	case LOG_ENTRY_CODE_TRANSITIONTO_OK: return "Transition to OK";
+	case LOG_ENTRY_CODE_TRANSITIONTO_NON_CRITICALFROM_OK: return "Transition to Non-Critical from OK";
+	case LOG_ENTRY_CODE_TRANSITIONTO_CRITICALFROMLESSSEVERE: return "Transition to Critical from less severe";
+	case LOG_ENTRY_CODE_TRANSITIONTO_NONRECOVERABLEFROMLESSSEVERE: return "Transition to Non-recoverable from less severe";
+	case LOG_ENTRY_CODE_TRANSITIONTO_NON_CRITICALFROMMORESEVERE: return "Transition to Non-Critical from more severe";
+	case LOG_ENTRY_CODE_TRANSITIONTO_CRITICALFROM_NONRECOVERABLE: return "Transition to Critical from Non-recoverable";
+	case LOG_ENTRY_CODE_TRANSITIONTO_NONRECOVERABLE: return "Transition to Non-recoverable";
+	case LOG_ENTRY_CODE_MONITOR: return "Monitor";
+	case LOG_ENTRY_CODE_INFORMATIONAL: return "Informational";
+	case LOG_ENTRY_CODE_DEVICE_REMOVED_DEVICE_ABSENT: return "Device Removed / Device Absent";
+	case LOG_ENTRY_CODE_DEVICE_INSERTED_DEVICE_PRESENT: return "Device Inserted / Device Present";
+	case LOG_ENTRY_CODE_DEVICE_DISABLED: return "Device Disabled";
+	case LOG_ENTRY_CODE_DEVICE_ENABLED: return "Device Enabled";
+	case LOG_ENTRY_CODE_TRANSITIONTO_RUNNING: return "Transition to Running";
+	case LOG_ENTRY_CODE_TRANSITIONTO_IN_TEST: return "Transition to In Test";
+	case LOG_ENTRY_CODE_TRANSITIONTO_POWER_OFF: return "Transition to Power Off";
+	case LOG_ENTRY_CODE_TRANSITIONTO_ON_LINE: return "Transition to On Line";
+	case LOG_ENTRY_CODE_TRANSITIONTO_OFF_LINE: return "Transition to Off Line";
+	case LOG_ENTRY_CODE_TRANSITIONTO_OFF_DUTY: return "Transition to Off Duty";
+	case LOG_ENTRY_CODE_TRANSITIONTO_DEGRADED: return "Transition to Degraded";
+	case LOG_ENTRY_CODE_TRANSITIONTO_POWER_SAVE: return "Transition to Power Save";
+	case LOG_ENTRY_CODE_INSTALL_ERROR: return "Install Error";
+	case LOG_ENTRY_CODE_FULLY_REDUNDANT: return "Fully Redundant";
+	case LOG_ENTRY_CODE_REDUNDANCY_LOST: return "Redundancy Lost";
+	case LOG_ENTRY_CODE_REDUNDANCY_DEGRADED: return "Redundancy Degraded";
+	case LOG_ENTRY_CODE_NONREDUNDANT_SUFFICIENT_RESOURCESFROM_REDUNDANT: return "Non-redundant:Sufficient Resources from Redundant";
+	case LOG_ENTRY_CODE_NONREDUNDANT_SUFFICIENT_RESOURCESFROM_INSUFFICIENT_RESOURCES: return "Non-redundant:Sufficient Resources from Insufficient Resources";
+	case LOG_ENTRY_CODE_NONREDUNDANT_INSUFFICIENT_RESOURCES: return "Non-redundant:Insufficient Resources";
+	case LOG_ENTRY_CODE_REDUNDANCY_DEGRADEDFROM_FULLY_REDUNDANT: return "Redundancy Degraded from Fully Redundant";
+	case LOG_ENTRY_CODE_REDUNDANCY_DEGRADEDFROM_NONREDUNDANT: return "Redundancy Degraded from Non-redundant";
+	case LOG_ENTRY_CODE_D0_POWER_STATE: return "D0 Power State";
+	case LOG_ENTRY_CODE_D1_POWER_STATE: return "D1 Power State";
+	case LOG_ENTRY_CODE_D2_POWER_STATE: return "D2 Power State";
+	case LOG_ENTRY_CODE_D3_POWER_STATE: return "D3 Power State";
+	case LOG_ENTRY_CODE_OEM: return "OEM";
+	default: return NULL;
+	}
+}
+
+/* LogEntry.v1_0_0.SensorType */
+enum rf_sensor_type {
+	SENSOR_TYPE_INVALID = 0,
+	SENSOR_TYPE_PLATFORM_SECURITY_VIOLATION_ATTEMPT = 1,
+	SENSOR_TYPE_TEMPERATURE = 2,
+	SENSOR_TYPE_VOLTAGE = 3,
+	SENSOR_TYPE_CURRENT = 4,
+	SENSOR_TYPE_FAN = 5,
+	SENSOR_TYPE_PHYSICAL_CHASSIS_SECURITY = 6,
+	SENSOR_TYPE_PROCESSOR = 7,
+	SENSOR_TYPE_POWER_SUPPLY_CONVERTER = 8,
+	SENSOR_TYPE_POWER_UNIT = 9,
+	SENSOR_TYPE_COOLING_DEVICE = 10,
+	SENSOR_TYPE_OTHER_UNITSBASED_SENSOR = 11,
+	SENSOR_TYPE_MEMORY = 12,
+	SENSOR_TYPE_DRIVE_SLOT_BAY = 13,
+	SENSOR_TYPE_POST_MEMORY_RESIZE = 14,
+	SENSOR_TYPE_SYSTEM_FIRMWARE_PROGRESS = 15,
+	SENSOR_TYPE_EVENT_LOGGING_DISABLED = 16,
+	SENSOR_TYPE_SYSTEM_EVENT = 17,
+	SENSOR_TYPE_CRITICAL_INTERRUPT = 18,
+	SENSOR_TYPE_BUTTON_SWITCH = 19,
+	SENSOR_TYPE_MODULE_BOARD = 20,
+	SENSOR_TYPE_MICROCONTROLLER_COPROCESSOR = 21,
+	SENSOR_TYPE_ADDIN_CARD = 22,
+	SENSOR_TYPE_CHASSIS = 23,
+	SENSOR_TYPE_CHIP_SET = 24,
+	SENSOR_TYPE_OTHER_FRU = 25,
+	SENSOR_TYPE_CABLE_INTERCONNECT = 26,
+	SENSOR_TYPE_TERMINATOR = 27,
+	SENSOR_TYPE_SYSTEM_BOOT_RESTART = 28,
+	SENSOR_TYPE_BOOT_ERROR = 29,
+	SENSOR_TYPE_BASE_OS_BOOT_INSTALLATION_STATUS = 30,
+	SENSOR_TYPE_OS_STOP_SHUTDOWN = 31,
+	SENSOR_TYPE_SLOT_CONNECTOR = 32,
+	SENSOR_TYPE_SYSTEM_ACPI_POWER_STATE = 33,
+	SENSOR_TYPE_WATCHDOG = 34,
+	SENSOR_TYPE_PLATFORM_ALERT = 35,
+	SENSOR_TYPE_ENTITY_PRESENCE = 36,
+	SENSOR_TYPE_MONITOR_ASICIC = 37,
+	SENSOR_TYPE_LAN = 38,
+	SENSOR_TYPE_MANAGEMENT_SUBSYSTEM_HEALTH = 39,
+	SENSOR_TYPE_BATTERY = 40,
+	SENSOR_TYPE_SESSION_AUDIT = 41,
+	SENSOR_TYPE_VERSION_CHANGE = 42,
+	SENSOR_TYPE_FRU_STATE = 43,
+	SENSOR_TYPE_OEM = 44,
+};
+
+static inline const char *rf_sensor_type_to_str(enum rf_sensor_type val)
+{
+	switch (val) {
+	case SENSOR_TYPE_INVALID: return "Invalid";
+	case SENSOR_TYPE_PLATFORM_SECURITY_VIOLATION_ATTEMPT: return "Platform Security Violation Attempt";
+	case SENSOR_TYPE_TEMPERATURE: return "Temperature";
+	case SENSOR_TYPE_VOLTAGE: return "Voltage";
+	case SENSOR_TYPE_CURRENT: return "Current";
+	case SENSOR_TYPE_FAN: return "Fan";
+	case SENSOR_TYPE_PHYSICAL_CHASSIS_SECURITY: return "Physical Chassis Security";
+	case SENSOR_TYPE_PROCESSOR: return "Processor";
+	case SENSOR_TYPE_POWER_SUPPLY_CONVERTER: return "Power Supply / Converter";
+	case SENSOR_TYPE_POWER_UNIT: return "PowerUnit";
+	case SENSOR_TYPE_COOLING_DEVICE: return "CoolingDevice";
+	case SENSOR_TYPE_OTHER_UNITSBASED_SENSOR: return "Other Units-based Sensor";
+	case SENSOR_TYPE_MEMORY: return "Memory";
+	case SENSOR_TYPE_DRIVE_SLOT_BAY: return "Drive Slot/Bay";
+	case SENSOR_TYPE_POST_MEMORY_RESIZE: return "POST Memory Resize";
+	case SENSOR_TYPE_SYSTEM_FIRMWARE_PROGRESS: return "System Firmware Progress";
+	case SENSOR_TYPE_EVENT_LOGGING_DISABLED: return "Event Logging Disabled";
+	case SENSOR_TYPE_SYSTEM_EVENT: return "System Event";
+	case SENSOR_TYPE_CRITICAL_INTERRUPT: return "Critical Interrupt";
+	case SENSOR_TYPE_BUTTON_SWITCH: return "Button/Switch";
+	case SENSOR_TYPE_MODULE_BOARD: return "Module/Board";
+	case SENSOR_TYPE_MICROCONTROLLER_COPROCESSOR: return "Microcontroller/Coprocessor";
+	case SENSOR_TYPE_ADDIN_CARD: return "Add-in Card";
+	case SENSOR_TYPE_CHASSIS: return "Chassis";
+	case SENSOR_TYPE_CHIP_SET: return "ChipSet";
+	case SENSOR_TYPE_OTHER_FRU: return "Other FRU";
+	case SENSOR_TYPE_CABLE_INTERCONNECT: return "Cable/Interconnect";
+	case SENSOR_TYPE_TERMINATOR: return "Terminator";
+	case SENSOR_TYPE_SYSTEM_BOOT_RESTART: return "SystemBoot/Restart";
+	case SENSOR_TYPE_BOOT_ERROR: return "Boot Error";
+	case SENSOR_TYPE_BASE_OS_BOOT_INSTALLATION_STATUS: return "BaseOSBoot/InstallationStatus";
+	case SENSOR_TYPE_OS_STOP_SHUTDOWN: return "OS Stop/Shutdown";
+	case SENSOR_TYPE_SLOT_CONNECTOR: return "Slot/Connector";
+	case SENSOR_TYPE_SYSTEM_ACPI_POWER_STATE: return "System ACPI PowerState";
+	case SENSOR_TYPE_WATCHDOG: return "Watchdog";
+	case SENSOR_TYPE_PLATFORM_ALERT: return "Platform Alert";
+	case SENSOR_TYPE_ENTITY_PRESENCE: return "Entity Presence";
+	case SENSOR_TYPE_MONITOR_ASICIC: return "Monitor ASIC/IC";
+	case SENSOR_TYPE_LAN: return "LAN";
+	case SENSOR_TYPE_MANAGEMENT_SUBSYSTEM_HEALTH: return "Management Subsystem Health";
+	case SENSOR_TYPE_BATTERY: return "Battery";
+	case SENSOR_TYPE_SESSION_AUDIT: return "Session Audit";
+	case SENSOR_TYPE_VERSION_CHANGE: return "Version Change";
+	case SENSOR_TYPE_FRU_STATE: return "FRUState";
+	case SENSOR_TYPE_OEM: return "OEM";
+	default: return NULL;
+	}
+}
+
+/* LogEntry.v1_7_0.LogDiagnosticDataTypes */
+enum rf_log_diagnostic_data_types {
+	LOG_DIAGNOSTIC_DATA_TYPES_INVALID = 0,
+	LOG_DIAGNOSTIC_DATA_TYPES_MANAGER = 1,
+	LOG_DIAGNOSTIC_DATA_TYPES_PRE_OS = 2,
+	LOG_DIAGNOSTIC_DATA_TYPES_OS = 3,
+	LOG_DIAGNOSTIC_DATA_TYPES_OEM = 4,
+	LOG_DIAGNOSTIC_DATA_TYPES_CPER = 5,
+	LOG_DIAGNOSTIC_DATA_TYPES_CPER_SECTION = 6,
+	LOG_DIAGNOSTIC_DATA_TYPES_DEVICE = 7,
+};
+
+static inline const char *rf_log_diagnostic_data_types_to_str(enum rf_log_diagnostic_data_types val)
+{
+	switch (val) {
+	case LOG_DIAGNOSTIC_DATA_TYPES_INVALID: return "Invalid";
+	case LOG_DIAGNOSTIC_DATA_TYPES_MANAGER: return "Manager";
+	case LOG_DIAGNOSTIC_DATA_TYPES_PRE_OS: return "PreOS";
+	case LOG_DIAGNOSTIC_DATA_TYPES_OS: return "OS";
+	case LOG_DIAGNOSTIC_DATA_TYPES_OEM: return "OEM";
+	case LOG_DIAGNOSTIC_DATA_TYPES_CPER: return "CPER";
+	case LOG_DIAGNOSTIC_DATA_TYPES_CPER_SECTION: return "CPERSection";
+	case LOG_DIAGNOSTIC_DATA_TYPES_DEVICE: return "Device";
+	default: return NULL;
+	}
+}
+
+/* LogEntry.v1_11_0.OriginatorTypes */
+enum rf_originator_types {
+	ORIGINATOR_TYPES_INVALID = 0,
+	ORIGINATOR_TYPES_CLIENT = 1,
+	ORIGINATOR_TYPES_INTERNAL = 2,
+	ORIGINATOR_TYPES_SUPPORTING_SERVICE = 3,
+};
+
+static inline const char *rf_originator_types_to_str(enum rf_originator_types val)
+{
+	switch (val) {
+	case ORIGINATOR_TYPES_INVALID: return "Invalid";
+	case ORIGINATOR_TYPES_CLIENT: return "Client";
+	case ORIGINATOR_TYPES_INTERNAL: return "Internal";
+	case ORIGINATOR_TYPES_SUPPORTING_SERVICE: return "SupportingService";
+	default: return NULL;
+	}
+}
+
+/* LogEntry.v1_14_0.CXLEntryType */
+enum rf_cxl_entry_type {
+	CXL_ENTRY_TYPE_INVALID = 0,
+	CXL_ENTRY_TYPE_DYNAMIC_CAPACITY = 1,
+	CXL_ENTRY_TYPE_INFORMATIONAL = 2,
+	CXL_ENTRY_TYPE_WARNING = 3,
+	CXL_ENTRY_TYPE_FAILURE = 4,
+	CXL_ENTRY_TYPE_FATAL = 5,
+};
+
+static inline const char *rf_cxl_entry_type_to_str(enum rf_cxl_entry_type val)
+{
+	switch (val) {
+	case CXL_ENTRY_TYPE_INVALID: return "Invalid";
+	case CXL_ENTRY_TYPE_DYNAMIC_CAPACITY: return "DynamicCapacity";
+	case CXL_ENTRY_TYPE_INFORMATIONAL: return "Informational";
+	case CXL_ENTRY_TYPE_WARNING: return "Warning";
+	case CXL_ENTRY_TYPE_FAILURE: return "Failure";
+	case CXL_ENTRY_TYPE_FATAL: return "Fatal";
+	default: return NULL;
+	}
+}
+
+#endif /* REDFISH_ENUM_LOG_ENTRY_H */

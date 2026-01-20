@@ -1,0 +1,281 @@
+{
+    "version": 1,
+    "id": "mld_topology",
+    "description": "Multi-Logical Device (MLD) demonstration - a single physical device exposing multiple independent Logical Devices",
+
+    "devices": [
+        {
+            "id": "cxl_mld_0",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d94",
+            "serial_number": "0x4d4c443030303031",
+            "component_type": 3,
+            "ld_count": 4,
+            "max_ld_count": 8,
+            "memory_granularity": 4,
+
+            "identify_memory_device": {
+                "fw_revision": "2.0.0-mld",
+                "total_capacity_mb": 131072,
+                "volatile_capacity_mb": 0,
+                "persistent_capacity_mb": 131072,
+                "partition_align_mb": 256,
+                "lsa_size": 262144,
+                "poison_list_max": 512,
+                "dc_region_count": 0
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 5,
+                "temperature": 45,
+                "dirty_shutdown_count": 0
+            },
+
+            "qos_control": {
+                "enabled": true,
+                "egress_moderate_pct": 50,
+                "egress_severe_pct": 75
+            },
+
+            "qos_status": {
+                "backpressure_avg_pct": 12
+            },
+
+            "cel_commands": [
+                "identify",
+                "get_supported_logs",
+                "get_log",
+                "memdev_identify",
+                "get_partition_info",
+                "get_health_info",
+                "get_alert_config",
+                "get_poison_list"
+            ],
+
+            "logical_devices": [
+                {
+                    "ld_id": 0,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "ld_id": 1,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 80,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "ld_id": 2,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 60,
+                    "qos_limit_bw": 80
+                },
+                {
+                    "ld_id": 3,
+                    "memory_size_mb": 32768,
+                    "persistent_capacity_mb": 32768,
+                    "qos_allocated_bw": 40,
+                    "qos_limit_bw": 60
+                }
+            ]
+        },
+        {
+            "id": "cxl_mld_asymmetric",
+            "vendor_id": "0x144d",
+            "device_id": "0xb80a",
+            "serial_number": "0x4d4c443030303032",
+            "component_type": 3,
+            "ld_count": 3,
+            "max_ld_count": 4,
+
+            "identify_memory_device": {
+                "fw_revision": "3.1.0",
+                "total_capacity_mb": 262144,
+                "volatile_capacity_mb": 65536,
+                "persistent_capacity_mb": 196608,
+                "partition_align_mb": 256
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 2,
+                "temperature": 42
+            },
+
+            "qos_control": {
+                "enabled": true,
+                "egress_moderate_pct": 40,
+                "egress_severe_pct": 60
+            },
+
+            "logical_devices": [
+                {
+                    "ld_id": 0,
+                    "memory_size_mb": 131072,
+                    "volatile_capacity_mb": 0,
+                    "persistent_capacity_mb": 131072,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "ld_id": 1,
+                    "memory_size_mb": 65536,
+                    "volatile_capacity_mb": 65536,
+                    "persistent_capacity_mb": 0,
+                    "qos_allocated_bw": 75,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "ld_id": 2,
+                    "memory_size_mb": 65536,
+                    "volatile_capacity_mb": 0,
+                    "persistent_capacity_mb": 65536,
+                    "qos_allocated_bw": 50,
+                    "qos_limit_bw": 75
+                }
+            ]
+        },
+        {
+            "id": "cxl_mld_mixed_health",
+            "vendor_id": "0x1344",
+            "device_id": "0xd401",
+            "serial_number": "0x4d4c443030303033",
+            "component_type": 3,
+            "ld_count": 4,
+
+            "identify_memory_device": {
+                "fw_revision": "1.5.0",
+                "total_capacity_mb": 65536,
+                "persistent_capacity_mb": 65536
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 15,
+                "temperature": 50
+            },
+
+            "logical_devices": [
+                {
+                    "ld_id": 0,
+                    "memory_size_mb": 16384,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "ld_id": 1,
+                    "memory_size_mb": 16384,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100,
+                    "health_info": {
+                        "health_status": 1,
+                        "media_status": 0
+                    }
+                },
+                {
+                    "ld_id": 2,
+                    "memory_size_mb": 16384,
+                    "qos_allocated_bw": 50,
+                    "qos_limit_bw": 75,
+                    "health_info": {
+                        "health_status": 2,
+                        "media_status": 0
+                    }
+                },
+                {
+                    "ld_id": 3,
+                    "memory_size_mb": 16384,
+                    "qos_allocated_bw": 25,
+                    "qos_limit_bw": 50,
+                    "health_info": {
+                        "health_status": 0,
+                        "media_status": 2
+                    }
+                }
+            ]
+        },
+        {
+            "id": "cxl_mld_16ld",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d95",
+            "serial_number": "0x4d4c443030303034",
+            "component_type": 3,
+            "ld_count": 16,
+
+            "identify_memory_device": {
+                "fw_revision": "4.0.0",
+                "total_capacity_mb": 524288,
+                "persistent_capacity_mb": 524288,
+                "dc_region_count": 16
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 1,
+                "temperature": 40
+            },
+
+            "logical_devices": [
+                { "ld_id": 0,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 1,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 2,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 3,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 4,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 5,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 6,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 7,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 8,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 9,  "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 10, "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 11, "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 12, "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 13, "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 14, "memory_size_mb": 32768, "qos_allocated_bw": 100 },
+                { "ld_id": 15, "memory_size_mb": 32768, "qos_allocated_bw": 100 }
+            ]
+        },
+        {
+            "id": "cxl_sld_reference",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x534c443030303031",
+            "component_type": 3,
+            "ld_count": 1,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.0",
+                "total_capacity_mb": 16384,
+                "persistent_capacity_mb": 16384
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 3,
+                "temperature": 38
+            }
+        }
+    ],
+
+    "hosts": [
+        {
+            "id": "host0",
+            "name": "Compute Node 0",
+            "direct_attached": true
+        },
+        {
+            "id": "host1",
+            "name": "Compute Node 1",
+            "direct_attached": true
+        }
+    ]
+}

@@ -1,0 +1,251 @@
+/* SPDX-License-Identifier: LGPL-2.1 */
+/* Auto-generated from DMTF CSDL schemas - DO NOT EDIT */
+
+#ifndef REDFISH_ENUM_EVENT_DESTINATION_H
+#define REDFISH_ENUM_EVENT_DESTINATION_H
+
+#include <stddef.h>
+
+/* EventDestination.EventFormatType */
+enum rf_event_format_type {
+	EVENT_FORMAT_TYPE_INVALID = 0,
+	EVENT_FORMAT_TYPE_EVENT = 1,
+	EVENT_FORMAT_TYPE_METRIC_REPORT = 2,
+};
+
+static inline const char *rf_event_format_type_to_str(enum rf_event_format_type val)
+{
+	switch (val) {
+	case EVENT_FORMAT_TYPE_INVALID: return "Invalid";
+	case EVENT_FORMAT_TYPE_EVENT: return "Event";
+	case EVENT_FORMAT_TYPE_METRIC_REPORT: return "MetricReport";
+	default: return NULL;
+	}
+}
+
+/* EventDestination.v1_0_0.EventDestinationProtocol */
+enum rf_event_destination_protocol {
+	EVENT_DESTINATION_PROTOCOL_INVALID = 0,
+	EVENT_DESTINATION_PROTOCOL_REDFISH = 1,
+	EVENT_DESTINATION_PROTOCOL_KAFKA = 2,
+	EVENT_DESTINATION_PROTOCOL_SNM_PV1 = 3,
+	EVENT_DESTINATION_PROTOCOL_SNM_PV2C = 4,
+	EVENT_DESTINATION_PROTOCOL_SNM_PV3 = 5,
+	EVENT_DESTINATION_PROTOCOL_SMTP = 6,
+	EVENT_DESTINATION_PROTOCOL_SYSLOG_TLS = 7,
+	EVENT_DESTINATION_PROTOCOL_SYSLOG_TCP = 8,
+	EVENT_DESTINATION_PROTOCOL_SYSLOG_UDP = 9,
+	EVENT_DESTINATION_PROTOCOL_SYSLOG_RELP = 10,
+	EVENT_DESTINATION_PROTOCOL_OEM = 11,
+};
+
+static inline const char *rf_event_destination_protocol_to_str(enum rf_event_destination_protocol val)
+{
+	switch (val) {
+	case EVENT_DESTINATION_PROTOCOL_INVALID: return "Invalid";
+	case EVENT_DESTINATION_PROTOCOL_REDFISH: return "Redfish";
+	case EVENT_DESTINATION_PROTOCOL_KAFKA: return "Kafka";
+	case EVENT_DESTINATION_PROTOCOL_SNM_PV1: return "SNMPv1";
+	case EVENT_DESTINATION_PROTOCOL_SNM_PV2C: return "SNMPv2c";
+	case EVENT_DESTINATION_PROTOCOL_SNM_PV3: return "SNMPv3";
+	case EVENT_DESTINATION_PROTOCOL_SMTP: return "SMTP";
+	case EVENT_DESTINATION_PROTOCOL_SYSLOG_TLS: return "SyslogTLS";
+	case EVENT_DESTINATION_PROTOCOL_SYSLOG_TCP: return "SyslogTCP";
+	case EVENT_DESTINATION_PROTOCOL_SYSLOG_UDP: return "SyslogUDP";
+	case EVENT_DESTINATION_PROTOCOL_SYSLOG_RELP: return "SyslogRELP";
+	case EVENT_DESTINATION_PROTOCOL_OEM: return "OEM";
+	default: return NULL;
+	}
+}
+
+/* EventDestination.v1_3_0.SubscriptionType */
+enum rf_subscription_type {
+	SUBSCRIPTION_TYPE_INVALID = 0,
+	SUBSCRIPTION_TYPE_REDFISH_EVENT = 1,
+	SUBSCRIPTION_TYPE_SSE = 2,
+	SUBSCRIPTION_TYPE_SNMP_TRAP = 3,
+	SUBSCRIPTION_TYPE_SNMP_INFORM = 4,
+	SUBSCRIPTION_TYPE_SYSLOG = 5,
+	SUBSCRIPTION_TYPE_OEM = 6,
+};
+
+static inline const char *rf_subscription_type_to_str(enum rf_subscription_type val)
+{
+	switch (val) {
+	case SUBSCRIPTION_TYPE_INVALID: return "Invalid";
+	case SUBSCRIPTION_TYPE_REDFISH_EVENT: return "RedfishEvent";
+	case SUBSCRIPTION_TYPE_SSE: return "SSE";
+	case SUBSCRIPTION_TYPE_SNMP_TRAP: return "SNMPTrap";
+	case SUBSCRIPTION_TYPE_SNMP_INFORM: return "SNMPInform";
+	case SUBSCRIPTION_TYPE_SYSLOG: return "Syslog";
+	case SUBSCRIPTION_TYPE_OEM: return "OEM";
+	default: return NULL;
+	}
+}
+
+/* EventDestination.v1_6_0.DeliveryRetryPolicy */
+enum rf_delivery_retry_policy {
+	DELIVERY_RETRY_POLICY_INVALID = 0,
+	DELIVERY_RETRY_POLICY_TERMINATE_AFTER_RETRIES = 1,
+	DELIVERY_RETRY_POLICY_SUSPEND_RETRIES = 2,
+	DELIVERY_RETRY_POLICY_RETRY_FOREVER = 3,
+	DELIVERY_RETRY_POLICY_RETRY_FOREVER_WITH_BACKOFF = 4,
+};
+
+static inline const char *rf_delivery_retry_policy_to_str(enum rf_delivery_retry_policy val)
+{
+	switch (val) {
+	case DELIVERY_RETRY_POLICY_INVALID: return "Invalid";
+	case DELIVERY_RETRY_POLICY_TERMINATE_AFTER_RETRIES: return "TerminateAfterRetries";
+	case DELIVERY_RETRY_POLICY_SUSPEND_RETRIES: return "SuspendRetries";
+	case DELIVERY_RETRY_POLICY_RETRY_FOREVER: return "RetryForever";
+	case DELIVERY_RETRY_POLICY_RETRY_FOREVER_WITH_BACKOFF: return "RetryForeverWithBackoff";
+	default: return NULL;
+	}
+}
+
+/* EventDestination.v1_7_0.SNMPAuthenticationProtocols */
+enum rf_snmp_authentication_protocols {
+	SNMP_AUTHENTICATION_PROTOCOLS_INVALID = 0,
+	SNMP_AUTHENTICATION_PROTOCOLS_NONE = 1,
+	SNMP_AUTHENTICATION_PROTOCOLS_COMMUNITY_STRING = 2,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC_MD5 = 3,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC_SHA96 = 4,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC128_SHA224 = 5,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC192_SHA256 = 6,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC256_SHA384 = 7,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC384_SHA512 = 8,
+};
+
+static inline const char *rf_snmp_authentication_protocols_to_str(enum rf_snmp_authentication_protocols val)
+{
+	switch (val) {
+	case SNMP_AUTHENTICATION_PROTOCOLS_INVALID: return "Invalid";
+	case SNMP_AUTHENTICATION_PROTOCOLS_NONE: return "None";
+	case SNMP_AUTHENTICATION_PROTOCOLS_COMMUNITY_STRING: return "CommunityString";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC_MD5: return "HMAC_MD5";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC_SHA96: return "HMAC_SHA96";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC128_SHA224: return "HMAC128_SHA224";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC192_SHA256: return "HMAC192_SHA256";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC256_SHA384: return "HMAC256_SHA384";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC384_SHA512: return "HMAC384_SHA512";
+	default: return NULL;
+	}
+}
+
+/* EventDestination.v1_7_0.SNMPEncryptionProtocols */
+enum rf_snmp_encryption_protocols {
+	SNMP_ENCRYPTION_PROTOCOLS_INVALID = 0,
+	SNMP_ENCRYPTION_PROTOCOLS_NONE = 1,
+	SNMP_ENCRYPTION_PROTOCOLS_CBC_DES = 2,
+	SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES128 = 3,
+	SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES192 = 4,
+	SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES256 = 5,
+};
+
+static inline const char *rf_snmp_encryption_protocols_to_str(enum rf_snmp_encryption_protocols val)
+{
+	switch (val) {
+	case SNMP_ENCRYPTION_PROTOCOLS_INVALID: return "Invalid";
+	case SNMP_ENCRYPTION_PROTOCOLS_NONE: return "None";
+	case SNMP_ENCRYPTION_PROTOCOLS_CBC_DES: return "CBC_DES";
+	case SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES128: return "CFB128_AES128";
+	case SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES192: return "CFB128_AES192";
+	case SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES256: return "CFB128_AES256";
+	default: return NULL;
+	}
+}
+
+/* EventDestination.v1_9_0.SyslogSeverity */
+enum rf_syslog_severity {
+	SYSLOG_SEVERITY_INVALID = 0,
+	SYSLOG_SEVERITY_EMERGENCY = 1,
+	SYSLOG_SEVERITY_ALERT = 2,
+	SYSLOG_SEVERITY_CRITICAL = 3,
+	SYSLOG_SEVERITY_ERROR = 4,
+	SYSLOG_SEVERITY_WARNING = 5,
+	SYSLOG_SEVERITY_NOTICE = 6,
+	SYSLOG_SEVERITY_INFORMATIONAL = 7,
+	SYSLOG_SEVERITY_DEBUG = 8,
+	SYSLOG_SEVERITY_ALL = 9,
+};
+
+static inline const char *rf_syslog_severity_to_str(enum rf_syslog_severity val)
+{
+	switch (val) {
+	case SYSLOG_SEVERITY_INVALID: return "Invalid";
+	case SYSLOG_SEVERITY_EMERGENCY: return "Emergency";
+	case SYSLOG_SEVERITY_ALERT: return "Alert";
+	case SYSLOG_SEVERITY_CRITICAL: return "Critical";
+	case SYSLOG_SEVERITY_ERROR: return "Error";
+	case SYSLOG_SEVERITY_WARNING: return "Warning";
+	case SYSLOG_SEVERITY_NOTICE: return "Notice";
+	case SYSLOG_SEVERITY_INFORMATIONAL: return "Informational";
+	case SYSLOG_SEVERITY_DEBUG: return "Debug";
+	case SYSLOG_SEVERITY_ALL: return "All";
+	default: return NULL;
+	}
+}
+
+/* EventDestination.v1_9_0.SyslogFacility */
+enum rf_syslog_facility {
+	SYSLOG_FACILITY_INVALID = 0,
+	SYSLOG_FACILITY_KERN = 1,
+	SYSLOG_FACILITY_USER = 2,
+	SYSLOG_FACILITY_MAIL = 3,
+	SYSLOG_FACILITY_DAEMON = 4,
+	SYSLOG_FACILITY_AUTH = 5,
+	SYSLOG_FACILITY_SYSLOG = 6,
+	SYSLOG_FACILITY_LPR = 7,
+	SYSLOG_FACILITY_NEWS = 8,
+	SYSLOG_FACILITY_UUCP = 9,
+	SYSLOG_FACILITY_CRON = 10,
+	SYSLOG_FACILITY_AUTHPRIV = 11,
+	SYSLOG_FACILITY_FTP = 12,
+	SYSLOG_FACILITY_NTP = 13,
+	SYSLOG_FACILITY_SECURITY = 14,
+	SYSLOG_FACILITY_CONSOLE = 15,
+	SYSLOG_FACILITY_SOLARIS_CRON = 16,
+	SYSLOG_FACILITY_LOCAL0 = 17,
+	SYSLOG_FACILITY_LOCAL1 = 18,
+	SYSLOG_FACILITY_LOCAL2 = 19,
+	SYSLOG_FACILITY_LOCAL3 = 20,
+	SYSLOG_FACILITY_LOCAL4 = 21,
+	SYSLOG_FACILITY_LOCAL5 = 22,
+	SYSLOG_FACILITY_LOCAL6 = 23,
+	SYSLOG_FACILITY_LOCAL7 = 24,
+};
+
+static inline const char *rf_syslog_facility_to_str(enum rf_syslog_facility val)
+{
+	switch (val) {
+	case SYSLOG_FACILITY_INVALID: return "Invalid";
+	case SYSLOG_FACILITY_KERN: return "Kern";
+	case SYSLOG_FACILITY_USER: return "User";
+	case SYSLOG_FACILITY_MAIL: return "Mail";
+	case SYSLOG_FACILITY_DAEMON: return "Daemon";
+	case SYSLOG_FACILITY_AUTH: return "Auth";
+	case SYSLOG_FACILITY_SYSLOG: return "Syslog";
+	case SYSLOG_FACILITY_LPR: return "LPR";
+	case SYSLOG_FACILITY_NEWS: return "News";
+	case SYSLOG_FACILITY_UUCP: return "UUCP";
+	case SYSLOG_FACILITY_CRON: return "Cron";
+	case SYSLOG_FACILITY_AUTHPRIV: return "Authpriv";
+	case SYSLOG_FACILITY_FTP: return "FTP";
+	case SYSLOG_FACILITY_NTP: return "NTP";
+	case SYSLOG_FACILITY_SECURITY: return "Security";
+	case SYSLOG_FACILITY_CONSOLE: return "Console";
+	case SYSLOG_FACILITY_SOLARIS_CRON: return "SolarisCron";
+	case SYSLOG_FACILITY_LOCAL0: return "Local0";
+	case SYSLOG_FACILITY_LOCAL1: return "Local1";
+	case SYSLOG_FACILITY_LOCAL2: return "Local2";
+	case SYSLOG_FACILITY_LOCAL3: return "Local3";
+	case SYSLOG_FACILITY_LOCAL4: return "Local4";
+	case SYSLOG_FACILITY_LOCAL5: return "Local5";
+	case SYSLOG_FACILITY_LOCAL6: return "Local6";
+	case SYSLOG_FACILITY_LOCAL7: return "Local7";
+	default: return NULL;
+	}
+}
+
+#endif /* REDFISH_ENUM_EVENT_DESTINATION_H */

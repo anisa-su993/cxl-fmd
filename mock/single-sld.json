@@ -1,0 +1,33 @@
+{
+    "version": 1,
+    "id": "single_sld",
+    "description": "Single direct-attached CXL Type 3 SLD (16GB persistent)",
+
+    "devices": [
+        {
+            "id": "cxl_mem0",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x0123456789abcdef",
+            "component_type": 3,
+            "ld_count": 1,
+
+            "identify_memory_device": {
+                "fw_revision": "1.2.3",
+                "total_capacity_mb": 16384,
+                "volatile_capacity_mb": 0,
+                "persistent_capacity_mb": 16384,
+                "partition_align_mb": 256,
+                "lsa_size": 65536
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 5,
+                "temperature": 42,
+                "dirty_shutdown_count": 0
+            }
+        }
+    ]
+}

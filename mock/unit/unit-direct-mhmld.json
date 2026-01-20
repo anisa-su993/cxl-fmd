@@ -1,0 +1,84 @@
+{
+    "version": 1,
+    "id": "unit_direct_mhmld",
+    "description": "Unit test: Direct-attached MH-MLD (2 heads, 2 LDs each)",
+
+    "hosts": [
+        {
+            "id": "host0",
+            "name": "Host A",
+            "direct_attached": true
+        },
+        {
+            "id": "host1",
+            "name": "Host B",
+            "direct_attached": true
+        }
+    ],
+
+    "devices": [
+        {
+            "id": "mhmld_0",
+            "type": "MHD",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d96",
+            "serial_number": "0x4d484d4c44303030",
+
+            "num_heads": 2,
+            "max_heads": 2,
+
+            "heads": [
+                {
+                    "head_id": 0,
+                    "presentation": "MLD",
+                    "lds": [0, 1],
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "attached_host": "host0"
+                },
+                {
+                    "head_id": 1,
+                    "presentation": "MLD",
+                    "lds": [2, 3],
+                    "max_link_width": 16,
+                    "negotiated_link_width": 8,
+                    "attached_host": "host1"
+                }
+            ],
+
+            "ld_pool": [
+                {
+                    "pool_index": 0,
+                    "memory_size_mb": 1024,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "pool_index": 1,
+                    "memory_size_mb": 1024,
+                    "qos_allocated_bw": 80,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "pool_index": 2,
+                    "memory_size_mb": 1024,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "pool_index": 3,
+                    "memory_size_mb": 1024,
+                    "qos_allocated_bw": 80,
+                    "qos_limit_bw": 100
+                }
+            ],
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 4,
+                "temperature": 45
+            }
+        }
+    ]
+}

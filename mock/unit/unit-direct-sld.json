@@ -1,0 +1,31 @@
+{
+    "version": 1,
+    "id": "unit_direct_sld",
+    "description": "Unit test: Direct-attached SLD (2GB persistent)",
+
+    "devices": [
+        {
+            "id": "sld_0",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x534c44303030303030",
+            "component_type": 3,
+            "ld_count": 1,
+
+            "identify_memory_device": {
+                "fw_revision": "1.0.0",
+                "total_capacity_mb": 2048,
+                "volatile_capacity_mb": 0,
+                "persistent_capacity_mb": 2048,
+                "partition_align_mb": 256
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 5,
+                "temperature": 40
+            }
+        }
+    ]
+}

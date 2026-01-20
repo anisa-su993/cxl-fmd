@@ -1,0 +1,82 @@
+{
+    "version": 1,
+    "id": "multi_device",
+    "description": "Multiple direct-attached CXL memory devices",
+
+    "devices": [
+        {
+            "id": "cxl_samsung_0",
+            "vendor_id": "0x144d",
+            "device_id": "0xa80a",
+            "serial_number": "0x53414d53554e4730",
+            "component_type": 3,
+            "ld_count": 1,
+
+            "identify_memory_device": {
+                "fw_revision": "2.1.0",
+                "total_capacity_mb": 32768,
+                "volatile_capacity_mb": 0,
+                "persistent_capacity_mb": 32768,
+                "partition_align_mb": 256
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 2,
+                "temperature": 38
+            }
+        },
+        {
+            "id": "cxl_micron_0",
+            "vendor_id": "0x1344",
+            "device_id": "0xc301",
+            "serial_number": "0x4d4943524f4e3030",
+            "component_type": 3,
+            "ld_count": 1,
+
+            "identify_memory_device": {
+                "fw_revision": "3.0.1",
+                "total_capacity_mb": 65536,
+                "volatile_capacity_mb": 8192,
+                "persistent_capacity_mb": 57344,
+                "partition_align_mb": 256
+            },
+
+            "partition_info": {
+                "active_volatile_mb": 8192,
+                "active_persistent_mb": 57344,
+                "next_volatile_mb": 8192,
+                "next_persistent_mb": 57344
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 8,
+                "temperature": 45
+            }
+        },
+        {
+            "id": "cxl_intel_0",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d93",
+            "serial_number": "0x494e54454c303030",
+            "component_type": 3,
+
+            "identify_memory_device": {
+                "fw_revision": "1.5.2",
+                "total_capacity_mb": 16384,
+                "volatile_capacity_mb": 16384,
+                "persistent_capacity_mb": 0
+            },
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0,
+                "life_used": 0,
+                "temperature": 35
+            }
+        }
+    ]
+}

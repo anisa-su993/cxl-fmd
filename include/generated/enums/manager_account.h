@@ -1,0 +1,92 @@
+/* SPDX-License-Identifier: LGPL-2.1 */
+/* Auto-generated from DMTF CSDL schemas - DO NOT EDIT */
+
+#ifndef REDFISH_ENUM_MANAGER_ACCOUNT_H
+#define REDFISH_ENUM_MANAGER_ACCOUNT_H
+
+#include <stddef.h>
+
+/* ManagerAccount.AccountTypes */
+enum rf_account_types {
+	ACCOUNT_TYPES_INVALID = 0,
+	ACCOUNT_TYPES_REDFISH = 1,
+	ACCOUNT_TYPES_SNMP = 2,
+	ACCOUNT_TYPES_OEM = 3,
+	ACCOUNT_TYPES_HOST_CONSOLE = 4,
+	ACCOUNT_TYPES_MANAGER_CONSOLE = 5,
+	ACCOUNT_TYPES_IPMI = 6,
+	ACCOUNT_TYPES_KVMIP = 7,
+	ACCOUNT_TYPES_VIRTUAL_MEDIA = 8,
+	ACCOUNT_TYPES_WEB_UI = 9,
+	ACCOUNT_TYPES_CONTROL_PANEL = 10,
+};
+
+static inline const char *rf_account_types_to_str(enum rf_account_types val)
+{
+	switch (val) {
+	case ACCOUNT_TYPES_INVALID: return "Invalid";
+	case ACCOUNT_TYPES_REDFISH: return "Redfish";
+	case ACCOUNT_TYPES_SNMP: return "SNMP";
+	case ACCOUNT_TYPES_OEM: return "OEM";
+	case ACCOUNT_TYPES_HOST_CONSOLE: return "HostConsole";
+	case ACCOUNT_TYPES_MANAGER_CONSOLE: return "ManagerConsole";
+	case ACCOUNT_TYPES_IPMI: return "IPMI";
+	case ACCOUNT_TYPES_KVMIP: return "KVMIP";
+	case ACCOUNT_TYPES_VIRTUAL_MEDIA: return "VirtualMedia";
+	case ACCOUNT_TYPES_WEB_UI: return "WebUI";
+	case ACCOUNT_TYPES_CONTROL_PANEL: return "ControlPanel";
+	default: return NULL;
+	}
+}
+
+/* ManagerAccount.v1_4_0.SNMPAuthenticationProtocols */
+enum rf_snmp_authentication_protocols {
+	SNMP_AUTHENTICATION_PROTOCOLS_INVALID = 0,
+	SNMP_AUTHENTICATION_PROTOCOLS_NONE = 1,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC_MD5 = 2,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC_SHA96 = 3,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC128_SHA224 = 4,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC192_SHA256 = 5,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC256_SHA384 = 6,
+	SNMP_AUTHENTICATION_PROTOCOLS_HMAC384_SHA512 = 7,
+};
+
+static inline const char *rf_snmp_authentication_protocols_to_str(enum rf_snmp_authentication_protocols val)
+{
+	switch (val) {
+	case SNMP_AUTHENTICATION_PROTOCOLS_INVALID: return "Invalid";
+	case SNMP_AUTHENTICATION_PROTOCOLS_NONE: return "None";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC_MD5: return "HMAC_MD5";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC_SHA96: return "HMAC_SHA96";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC128_SHA224: return "HMAC128_SHA224";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC192_SHA256: return "HMAC192_SHA256";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC256_SHA384: return "HMAC256_SHA384";
+	case SNMP_AUTHENTICATION_PROTOCOLS_HMAC384_SHA512: return "HMAC384_SHA512";
+	default: return NULL;
+	}
+}
+
+/* ManagerAccount.v1_4_0.SNMPEncryptionProtocols */
+enum rf_snmp_encryption_protocols {
+	SNMP_ENCRYPTION_PROTOCOLS_INVALID = 0,
+	SNMP_ENCRYPTION_PROTOCOLS_NONE = 1,
+	SNMP_ENCRYPTION_PROTOCOLS_CBC_DES = 2,
+	SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES128 = 3,
+	SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES192 = 4,
+	SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES256 = 5,
+};
+
+static inline const char *rf_snmp_encryption_protocols_to_str(enum rf_snmp_encryption_protocols val)
+{
+	switch (val) {
+	case SNMP_ENCRYPTION_PROTOCOLS_INVALID: return "Invalid";
+	case SNMP_ENCRYPTION_PROTOCOLS_NONE: return "None";
+	case SNMP_ENCRYPTION_PROTOCOLS_CBC_DES: return "CBC_DES";
+	case SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES128: return "CFB128_AES128";
+	case SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES192: return "CFB128_AES192";
+	case SNMP_ENCRYPTION_PROTOCOLS_CFB128_AES256: return "CFB128_AES256";
+	default: return NULL;
+	}
+}
+
+#endif /* REDFISH_ENUM_MANAGER_ACCOUNT_H */

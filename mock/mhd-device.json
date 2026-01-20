@@ -1,0 +1,185 @@
+{
+    "version": 1,
+    "id": "mhd_topology",
+    "description": "Multi-Headed Device (MHD) demonstration - devices with multiple CXL upstream ports (heads) for multi-host memory sharing",
+
+    "hosts": [
+        {
+            "id": "host0",
+            "name": "Compute Node 0",
+            "direct_attached": true,
+            "_comment": "Connects to MHD head 0"
+        },
+        {
+            "id": "host1",
+            "name": "Compute Node 1",
+            "direct_attached": true,
+            "_comment": "Connects to MHD head 1"
+        }
+    ],
+
+    "devices": [
+        {
+            "_comment": "MH-SLD: Each head presents as single-LD device",
+            "id": "cxl_mhsld_0",
+            "type": "MHD",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d95",
+            "serial_number": "0x4d48534c44303030",
+
+            "num_heads": 2,
+            "max_heads": 4,
+
+            "heads": [
+                {
+                    "head_id": 0,
+                    "presentation": "SLD",
+                    "lds": [0],
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "attached_host": "host0"
+                },
+                {
+                    "head_id": 1,
+                    "presentation": "SLD",
+                    "lds": [1],
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "attached_host": "host1"
+                }
+            ],
+
+            "ld_pool": [
+                {
+                    "pool_index": 0,
+                    "memory_size_mb": 16384,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                },
+                {
+                    "pool_index": 1,
+                    "memory_size_mb": 16384,
+                    "qos_allocated_bw": 100,
+                    "qos_limit_bw": 100
+                }
+            ],
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0
+            }
+        },
+
+        {
+            "_comment": "MH-MLD: Each head presents as MLD with multiple LDs",
+            "id": "cxl_mhmld_0",
+            "type": "MHD",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d96",
+            "serial_number": "0x4d484d4c44303030",
+
+            "num_heads": 2,
+            "max_heads": 2,
+
+            "heads": [
+                {
+                    "head_id": 0,
+                    "presentation": "MLD",
+                    "lds": [0, 1, 2, 3],
+                    "max_link_width": 16,
+                    "negotiated_link_width": 16,
+                    "attached_host": "host0",
+                    "_comment": "Host 0 sees 4 LDs (LD-IDs 0-3)"
+                },
+                {
+                    "head_id": 1,
+                    "presentation": "MLD",
+                    "lds": [4, 5],
+                    "max_link_width": 16,
+                    "negotiated_link_width": 8,
+                    "attached_host": "host1",
+                    "_comment": "Host 1 sees 2 LDs (LD-IDs 0-1, mapped from pool 4-5)"
+                }
+            ],
+
+            "ld_pool": [
+                {"pool_index": 0, "memory_size_mb": 8192, "qos_allocated_bw": 100},
+                {"pool_index": 1, "memory_size_mb": 8192, "qos_allocated_bw": 75},
+                {"pool_index": 2, "memory_size_mb": 4096, "qos_allocated_bw": 50},
+                {"pool_index": 3, "memory_size_mb": 4096, "qos_allocated_bw": 50},
+                {"pool_index": 4, "memory_size_mb": 16384, "qos_allocated_bw": 100},
+                {"pool_index": 5, "memory_size_mb": 8192, "qos_allocated_bw": 75}
+            ],
+
+            "health_info": {
+                "health_status": 0,
+                "media_status": 0
+            }
+        },
+
+        {
+            "_comment": "Mixed MH-SLD/MH-MLD: Different presentation per head",
+            "id": "cxl_mhd_mixed",
+            "type": "MHD",
+            "vendor_id": "0x1344",
+            "device_id": "0xc302",
+            "serial_number": "0x4d49584544303030",
+
+            "num_heads": 2,
+            "max_heads": 4,
+
+            "heads": [
+                {
+                    "head_id": 0,
+                    "presentation": "SLD",
+                    "lds": [0],
+                    "attached_host": "host0",
+                    "_comment": "Host 0 sees single 32GB device"
+                },
+                {
+                    "head_id": 1,
+                    "presentation": "MLD",
+                    "lds": [1, 2, 3],
+                    "attached_host": "host1",
+                    "_comment": "Host 1 sees MLD with 3 LDs"
+                }
+            ],
+
+            "ld_pool": [
+                {"pool_index": 0, "memory_size_mb": 32768},
+                {"pool_index": 1, "memory_size_mb": 16384},
+                {"pool_index": 2, "memory_size_mb": 8192},
+                {"pool_index": 3, "memory_size_mb": 8192}
+            ]
+        },
+
+        {
+            "_comment": "MHD with unmapped LDs in pool",
+            "id": "cxl_mhd_partial",
+            "type": "MHD",
+            "vendor_id": "0x8086",
+            "device_id": "0x0d97",
+
+            "num_heads": 2,
+            "max_heads": 4,
+
+            "heads": [
+                {
+                    "head_id": 0,
+                    "presentation": "MLD",
+                    "lds": [0, 1],
+                    "attached_host": "host0"
+                }
+            ],
+
+            "ld_pool": [
+                {"pool_index": 0, "memory_size_mb": 8192, "_comment": "Mapped to head 0"},
+                {"pool_index": 1, "memory_size_mb": 8192, "_comment": "Mapped to head 0"},
+                {"pool_index": 2, "memory_size_mb": 8192, "_comment": "Unmapped - available"},
+                {"pool_index": 3, "memory_size_mb": 8192, "_comment": "Unmapped - available"}
+            ],
+
+            "_comment_unmapped": "Pool LDs 2 and 3 are not mapped to any head - can be dynamically assigned"
+        }
+    ]
+}
